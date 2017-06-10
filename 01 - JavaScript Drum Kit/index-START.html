@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="65" src="sounds/clap.wav"></audio> <!-- HTML data-* attribute -->
   <audio data-key="83" src="sounds/hihat.wav"></audio>
   <audio data-key="68" src="sounds/kick.wav"></audio>
   <audio data-key="70" src="sounds/openhat.wav"></audio>
@@ -58,7 +58,30 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+// Events object: https://www.w3schools.com/jsref/dom_obj_event.asp
+window.addEventListener("keydown", function(e){
+	const audio = document.querySelector(`audio[data-key = "${e.keyCode}"]`); // template string ${string interpolation}
+	const key = document.querySelector(`div[data-key = "${e.keyCode}"]`);// css selector: https://www.w3schools.com/cssref/css_selectors.asp
+	if(!audio)return;
+	audio.currentTime = 0; // html5 media property and method: https://www.w3schools.com/tags/ref_av_dom.asp
+	audio.play();
+	key.classList.add('playing');
+	//key.addClass('playing') // in jQuery
+});
 
+function removeTransion(e){
+	if(e.propertyName != "transform")return;
+	this.classList.remove('playing'); // 'this' means the current working objects
+};
+
+const keys = document.querySelectorAll(`.key`);
+keys.forEach(key => key.addEventListener("transitionend", removeTransion));
+/*
+	 array function:
+		 (param1, param2, …, paramN) => { statements }
+		 (param1, param2, …, paramN) => expression
+						// 等於 :  => { return expression; }
+ */
 </script>
 
 
