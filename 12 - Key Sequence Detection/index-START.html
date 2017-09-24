@@ -7,6 +7,19 @@
 </head>
 <body>
 <script>
+  const keySequence = [];
+  const serectStr = "wilson";
+  window.addEventListener('keyup', (e) => {
+    console.log(e.key);
+    keySequence.push(e.key);
+    keySequence.splice(-serectStr.length - 1, keySequence.length - serectStr.length);
+    if (keySequence.join('') === serectStr){
+      console.log('BANG!!!');
+      document.getElementById('head').textContent = "BANG!!!";
+    }
+    console.log(keySequence);
+  })
 </script>
+<h1 id="head"></h1>
 </body>
 </html>
